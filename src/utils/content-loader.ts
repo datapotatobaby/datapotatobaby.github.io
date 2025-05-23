@@ -7,18 +7,25 @@ const projectModules = import.meta.glob('/public/content/projects/*/index.mdx', 
 
 // Function to extract frontmatter from raw MDX content
 function extractFrontmatter(content: string) {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  console.log('Raw content received:', content.substring(0, 200) + '...');
+  
+  // More flexible frontmatter regex that handles various line endings
+  const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
   
   if (!match) {
+    console.log('No frontmatter match found');
     return { frontmatter: {}, content: content };
   }
   
   const [, frontmatterStr, bodyContent] = match;
+  console.log('Frontmatter string:', frontmatterStr);
+  console.log('Body content preview:', bodyContent.substring(0, 100) + '...');
+  
   const frontmatter: Record<string, any> = {};
   
   // Parse YAML-like frontmatter
-  frontmatterStr.split('\n').forEach(line => {
+  frontmatterStr.split(/\r?\n/).forEach(line => {
     const colonIndex = line.indexOf(':');
     if (colonIndex > 0) {
       const key = line.substring(0, colonIndex).trim();
@@ -39,19 +46,28 @@ function extractFrontmatter(content: string) {
     }
   });
   
+  console.log('Parsed frontmatter:', frontmatter);
   return { frontmatter, content: bodyContent };
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const posts: BlogPost[] = [];
   
+  console.log('Loading blog posts...');
+  console.log('Blog modules found:', Object.keys(blogModules));
+  
   Object.entries(blogModules).forEach(([path, content]) => {
+    console.log('Processing path:', path);
     const slug = path.match(/\/public\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
-    if (!slug) return;
+    if (!slug) {
+      console.log('No slug found for path:', path);
+      return;
+    }
     
+    console.log('Processing slug:', slug);
     const { frontmatter, content: bodyContent } = extractFrontmatter(content as string);
     
-    posts.push({
+    const post = {
       slug,
       title: frontmatter.title || 'Untitled',
       excerpt: frontmatter.excerpt || '',
@@ -60,7 +76,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       category: Array.isArray(frontmatter.category) ? frontmatter.category[0] : (frontmatter.category || 'Uncategorized'),
       image: frontmatter.image?.replace('./images/', `/content/blog/${slug}/images/`) || '/placeholder.svg',
       content: bodyContent // Use only the body content, not including frontmatter
-    });
+    };
+    
+    console.log('Created post:', post);
+    posts.push(post);
   });
   
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
