@@ -2,8 +2,8 @@
 import { BlogPost, Project } from "@/types/content";
 
 // Import MDX content directly
-const blogModules = import.meta.glob('/content/blog/*/index.mdx', { as: 'raw', eager: true });
-const projectModules = import.meta.glob('/content/projects/*/index.mdx', { as: 'raw', eager: true });
+const blogModules = import.meta.glob('/public/content/blog/*/index.mdx', { as: 'raw', eager: true });
+const projectModules = import.meta.glob('/public/content/projects/*/index.mdx', { as: 'raw', eager: true });
 
 // Function to extract frontmatter from raw MDX content
 function extractFrontmatter(content: string) {
@@ -46,7 +46,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   const posts: BlogPost[] = [];
   
   Object.entries(blogModules).forEach(([path, content]) => {
-    const slug = path.match(/\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
+    const slug = path.match(/\/public\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) return;
     
     const { frontmatter } = extractFrontmatter(content as string);
@@ -57,7 +57,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       excerpt: frontmatter.excerpt || '',
       date: frontmatter.date || '',
       readTime: frontmatter.readTime || '',
-      category: frontmatter.category || 'Uncategorized',
+      category: Array.isArray(frontmatter.category) ? frontmatter.category[0] : (frontmatter.category || 'Uncategorized'),
       image: frontmatter.image?.replace('./images/', `/content/blog/${slug}/images/`) || '/placeholder.svg',
       content: content as string
     });
@@ -70,7 +70,7 @@ export async function getProjects(): Promise<Project[]> {
   const projects: Project[] = [];
   
   Object.entries(projectModules).forEach(([path, content]) => {
-    const slug = path.match(/\/content\/projects\/([^\/]+)\/index\.mdx$/)?.[1];
+    const slug = path.match(/\/public\/content\/projects\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) return;
     
     const { frontmatter } = extractFrontmatter(content as string);
