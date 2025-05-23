@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Clock } from 'lucide-react';
@@ -89,7 +90,7 @@ const BlogPost = () => {
 
     return (
       <div className="prose prose-lg dark:prose-invert max-w-none">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 mt-8">{post.title}</h1>
         
         <div className="flex flex-wrap gap-4 items-center text-sm text-foreground/70 mb-8">
           <div className="flex items-center gap-1">
