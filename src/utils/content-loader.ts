@@ -50,6 +50,40 @@ function extractFrontmatter(content: string) {
   return { frontmatter, content: bodyContent };
 }
 
+// Function to get a proper image URL or fallback to placeholder
+function getImageUrl(imagePath: string, type: 'blog' | 'project', slug: string): string {
+  if (!imagePath) {
+    return '/placeholder.svg';
+  }
+  
+  // If it's a relative path starting with ./images/
+  if (imagePath.startsWith('./images/')) {
+    // Use a placeholder image from unsplash for now since the actual images don't exist
+    const placeholders = [
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop',
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop',
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop',
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop'
+    ];
+    
+    // Use slug hash to consistently pick the same placeholder for the same content
+    const hash = slug.split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+    
+    return placeholders[Math.abs(hash) % placeholders.length];
+  }
+  
+  // If it's already a full URL, use it as-is
+  if (imagePath.startsWith('http')) {
+    return imagePath;
+  }
+  
+  // Fallback to placeholder
+  return '/placeholder.svg';
+}
+
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const posts: BlogPost[] = [];
   
@@ -74,8 +108,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       date: frontmatter.date || '',
       readTime: frontmatter.readTime || '',
       category: Array.isArray(frontmatter.category) ? frontmatter.category[0] : (frontmatter.category || 'Uncategorized'),
-      image: frontmatter.image?.replace('./images/', `/content/blog/${slug}/images/`) || '/placeholder.svg',
-      content: bodyContent // Use only the body content, not including frontmatter
+      image: getImageUrl(frontmatter.image, 'blog', slug),
+      content: bodyContent
     };
     
     console.log('Created post:', post);
@@ -98,12 +132,12 @@ export async function getProjects(): Promise<Project[]> {
       slug,
       title: frontmatter.title || 'Untitled',
       description: frontmatter.description || '',
-      image: frontmatter.image?.replace('./images/', `/content/projects/${slug}/images/`) || '/placeholder.svg',
+      image: getImageUrl(frontmatter.image, 'project', slug),
       category: Array.isArray(frontmatter.category) ? frontmatter.category : [frontmatter.category || 'Other'],
       tech: Array.isArray(frontmatter.tech) ? frontmatter.tech : [],
       github: frontmatter.github,
       liveLink: frontmatter.liveLink,
-      content: bodyContent // Use only the body content, not including frontmatter
+      content: bodyContent
     });
   });
   
