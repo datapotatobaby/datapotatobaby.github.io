@@ -9,8 +9,8 @@ const projectModules = import.meta.glob('/public/content/projects/*/index.mdx', 
 function extractFrontmatter(content: string) {
   console.log('Raw content received:', content.substring(0, 200) + '...');
   
-  // More flexible frontmatter regex that handles various line endings
-  const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
+  // Updated regex to handle leading whitespace/newlines before frontmatter
+  const frontmatterRegex = /^\s*---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
   
   if (!match) {
