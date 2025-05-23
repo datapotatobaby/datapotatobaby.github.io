@@ -6,8 +6,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
   
-  // Determine if we're on the homepage
+  // Determine if we're on the homepage or in blog section
   const isHomepage = location.pathname === '/';
+  const isBlogSection = location.pathname.startsWith('/blog');
   
   // Navigation link helper function
   const getNavLink = (section: string) => {
@@ -15,6 +16,17 @@ const Footer = () => {
       return `#${section}`;
     } else {
       return `/#${section}`;
+    }
+  };
+
+  // Blog link helper function
+  const getBlogLink = () => {
+    if (isBlogSection) {
+      return '/blog';
+    } else if (isHomepage) {
+      return '#blog';
+    } else {
+      return '/#blog';
     }
   };
   
@@ -41,7 +53,7 @@ const Footer = () => {
           <nav className="flex flex-wrap justify-center gap-6 text-sm">
             <a href={getNavLink('about')} className="text-slate-300 hover:text-white transition-colors">About</a>
             <a href={getNavLink('projects')} className="text-slate-300 hover:text-white transition-colors">Projects</a>
-            <a href={getNavLink('blog')} className="text-slate-300 hover:text-white transition-colors">Blog</a>
+            <a href={getBlogLink()} className="text-slate-300 hover:text-white transition-colors">Blog</a>
             <a href={getNavLink('contact')} className="text-slate-300 hover:text-white transition-colors">Contact</a>
           </nav>
         </div>
