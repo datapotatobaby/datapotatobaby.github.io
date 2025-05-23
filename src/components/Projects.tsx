@@ -1,89 +1,53 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink } from 'lucide-react';
-
-type ProjectType = {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  category: string[];
-  tech: string[];
-  github?: string;
-  liveLink?: string;
-};
+import { Link } from 'react-router-dom';
+import { Project } from "@/types/content";
+import { getProjects } from "@/utils/content-loader";
 
 const Projects = () => {
-  const projects: ProjectType[] = [
-    {
-      id: 1,
-      title: "Home Automation Dashboard",
-      description: "A centralized dashboard for controlling and monitoring smart home devices using Node-RED, MQTT, and Grafana for data visualization.",
-      image: "placeholder.svg",
-      category: ["Homelab", "Automation"],
-      tech: ["Docker", "Node-RED", "MQTT", "Grafana", "InfluxDB"],
-      github: "https://github.com",
-      liveLink: "#"
-    },
-    {
-      id: 2,
-      title: "Inventory Management System",
-      description: "Full-stack inventory tracking solution with barcode scanning capabilities for small businesses, complete with reporting and analytics.",
-      image: "placeholder.svg",
-      category: ["Business", "Web Development"],
-      tech: ["React", "Express", "MongoDB", "Node.js", "ChartJS"],
-      github: "https://github.com"
-    },
-    {
-      id: 3, 
-      title: "Personal Media Server",
-      description: "Self-hosted media server with automated content acquisition, metadata scraping, and transcoding for various devices.",
-      image: "placeholder.svg",
-      category: ["Homelab", "Self-hosting"],
-      tech: ["Docker", "Plex", "Sonarr", "Radarr", "Nginx"],
-      github: "https://github.com"
-    },
-    {
-      id: 4,
-      title: "ETL Data Pipeline",
-      description: "Automated data extraction, transformation, and loading pipeline for business analytics with scheduled processing and alerts.",
-      image: "placeholder.svg",
-      category: ["Data Engineering", "Automation"],
-      tech: ["Python", "Airflow", "PostgreSQL", "Pandas", "AWS S3"],
-      github: "https://github.com"
-    },
-    {
-      id: 5,
-      title: "Network Monitoring Solution",
-      description: "Comprehensive monitoring system for home/small business networks with alerting and historical performance metrics.",
-      image: "placeholder.svg",
-      category: ["Homelab", "Networking"],
-      tech: ["Prometheus", "Grafana", "SNMP", "Docker", "Python"],
-      github: "https://github.com"
-    },
-    {
-      id: 6,
-      title: "Customer Analytics Dashboard",
-      description: "Interactive dashboard for analyzing customer behavior and sales patterns to drive business decisions.",
-      image: "placeholder.svg",
-      category: ["Data Engineering", "Business"],
-      tech: ["React", "D3.js", "Python", "Flask", "PostgreSQL"],
-      github: "https://github.com"
-    }
-  ];
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All");
+  
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const projectsData = await getProjects();
+        setProjects(projectsData);
+      } catch (error) {
+        console.error("Error loading projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
 
   const allCategories = Array.from(
     new Set(projects.flatMap((project) => project.category))
   );
   
-  const [activeFilter, setActiveFilter] = useState("All");
-  
   const filteredProjects = activeFilter === "All" 
     ? projects 
     : projects.filter(project => project.category.includes(activeFilter));
+
+  if (isLoading) {
+    return (
+      <section id="projects" className="section-container bg-gradient-to-b from-background to-slate-50/40 dark:to-slate-900/40">
+        <div className="text-center mb-12">
+          <h2 className="section-title">My Projects</h2>
+          <p className="text-lg text-foreground/70 max-w-3xl mx-auto">
+            Loading projects...
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="projects" className="section-container bg-gradient-to-b from-background to-slate-50/40 dark:to-slate-900/40">
@@ -116,7 +80,7 @@ const Projects = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProjects.map((project) => (
-          <Card key={project.id} className="project-card card-hover">
+          <Card key={project.slug} className="project-card card-hover">
             <div className="h-48 bg-secondary flex items-center justify-center">
               <img 
                 src={project.image} 
@@ -125,7 +89,11 @@ const Projects = () => {
               />
             </div>
             <CardHeader>
-              <CardTitle>{project.title}</CardTitle>
+              <CardTitle>
+                <Link to={`/project/${project.slug}`} className="hover:text-primary transition-colors">
+                  {project.title}
+                </Link>
+              </CardTitle>
               <div className="flex flex-wrap gap-2 mt-2">
                 {project.category.map((cat) => (
                   <Badge key={cat} variant="outline" className="bg-primary/10">
@@ -165,9 +133,11 @@ const Projects = () => {
       </div>
 
       <div className="mt-12 text-center">
-        <Button variant="outline">
-          <Github className="mr-2 h-4 w-4" />
-          See More on GitHub
+        <Button variant="outline" asChild>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Github className="mr-2 h-4 w-4" />
+            See More on GitHub
+          </a>
         </Button>
       </div>
     </section>
