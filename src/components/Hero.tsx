@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown, FileCode, Github, Linkedin } from 'lucide-react';
 
 const Hero = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center pt-16 bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30">
       <div className="container">
@@ -20,7 +27,7 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <Button size="lg">
+              <Button size="lg" onClick={() => scrollToSection('projects')}>
                 View My Projects
               </Button>
               <Button variant="outline" size="lg">
