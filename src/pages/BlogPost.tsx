@@ -1,7 +1,6 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Button } from '@/components/ui/button';
@@ -126,15 +125,6 @@ const BlogPost = () => {
       <NavBar />
       
       <main className="flex-grow container max-w-4xl mx-auto px-4 py-12">
-        <div className="mb-8">
-          <Button variant="ghost" asChild className="mb-8 hover:bg-transparent p-0">
-            <Link to="/blog" className="flex items-center gap-2 text-foreground/70 hover:text-foreground">
-              <ArrowLeft size={16} />
-              Back to all posts
-            </Link>
-          </Button>
-        </div>
-        
         {renderContent()}
       </main>
       
