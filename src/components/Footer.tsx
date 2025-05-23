@@ -1,8 +1,22 @@
 
+import { useLocation } from 'react-router-dom';
 import { Code } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  
+  // Determine if we're on the homepage
+  const isHomepage = location.pathname === '/';
+  
+  // Navigation link helper function
+  const getNavLink = (section: string) => {
+    if (isHomepage) {
+      return `#${section}`;
+    } else {
+      return `/#${section}`;
+    }
+  };
   
   return (
     <footer className="bg-slate-900 text-white py-10">
@@ -25,10 +39,10 @@ const Footer = () => {
         
         <div className="mt-8 pt-8 border-t border-slate-800">
           <nav className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="#about" className="text-slate-300 hover:text-white transition-colors">About</a>
-            <a href="#projects" className="text-slate-300 hover:text-white transition-colors">Projects</a>
-            <a href="#blog" className="text-slate-300 hover:text-white transition-colors">Blog</a>
-            <a href="#contact" className="text-slate-300 hover:text-white transition-colors">Contact</a>
+            <a href={getNavLink('about')} className="text-slate-300 hover:text-white transition-colors">About</a>
+            <a href={getNavLink('projects')} className="text-slate-300 hover:text-white transition-colors">Projects</a>
+            <a href={getNavLink('blog')} className="text-slate-300 hover:text-white transition-colors">Blog</a>
+            <a href={getNavLink('contact')} className="text-slate-300 hover:text-white transition-colors">Contact</a>
           </nav>
         </div>
       </div>
