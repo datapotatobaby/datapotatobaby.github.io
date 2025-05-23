@@ -49,7 +49,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const slug = path.match(/\/public\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) return;
     
-    const { frontmatter } = extractFrontmatter(content as string);
+    const { frontmatter, content: bodyContent } = extractFrontmatter(content as string);
     
     posts.push({
       slug,
@@ -59,7 +59,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       readTime: frontmatter.readTime || '',
       category: Array.isArray(frontmatter.category) ? frontmatter.category[0] : (frontmatter.category || 'Uncategorized'),
       image: frontmatter.image?.replace('./images/', `/content/blog/${slug}/images/`) || '/placeholder.svg',
-      content: content as string
+      content: bodyContent // Use only the body content, not including frontmatter
     });
   });
   
@@ -73,7 +73,7 @@ export async function getProjects(): Promise<Project[]> {
     const slug = path.match(/\/public\/content\/projects\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) return;
     
-    const { frontmatter } = extractFrontmatter(content as string);
+    const { frontmatter, content: bodyContent } = extractFrontmatter(content as string);
     
     projects.push({
       slug,
@@ -84,7 +84,7 @@ export async function getProjects(): Promise<Project[]> {
       tech: Array.isArray(frontmatter.tech) ? frontmatter.tech : [],
       github: frontmatter.github,
       liveLink: frontmatter.liveLink,
-      content: content as string
+      content: bodyContent // Use only the body content, not including frontmatter
     });
   });
   
