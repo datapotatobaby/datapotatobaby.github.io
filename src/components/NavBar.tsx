@@ -50,7 +50,7 @@ const NavBar = () => {
         <nav className="hidden md:flex items-center gap-6">
           <a href={getNavLink('about')} className="text-foreground/80 hover:text-foreground transition-colors">About</a>
           <a href={getNavLink('projects')} className="text-foreground/80 hover:text-foreground transition-colors">Projects</a>
-          <Link to="/blog" className="text-foreground/80 hover:text-foreground transition-colors">Blog</Link>
+          <a href={getNavLink('blog')} className="text-foreground/80 hover:text-foreground transition-colors">Blog</a>
           <a href={getNavLink('contact')} className="text-foreground/80 hover:text-foreground transition-colors">Contact</a>
           <Button variant="default">
             <FileCode className="mr-2 h-4 w-4" /> Resume
@@ -72,7 +72,7 @@ const NavBar = () => {
             <nav className="flex flex-col items-center gap-4">
               <a href={getNavLink('about')} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>About</a>
               <a href={getNavLink('projects')} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Projects</a>
-              <Link to="/blog" className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Blog</Link>
+              <a href={getNavLink('blog')} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Blog</a>
               <a href={getNavLink('contact')} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Contact</a>
               <Button variant="default" className="w-11/12 mt-2">
                 <FileCode className="mr-2 h-4 w-4" /> Resume
