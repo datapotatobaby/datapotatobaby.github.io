@@ -22,7 +22,7 @@ function extractFrontmatter(content: string) {
     const colonIndex = line.indexOf(':');
     if (colonIndex > 0) {
       const key = line.substring(0, colonIndex).trim();
-      let value = line.substring(colonIndex + 1).trim();
+      let value: any = line.substring(colonIndex + 1).trim();
       
       // Remove quotes if present
       if ((value.startsWith('"') && value.endsWith('"')) || 
@@ -32,7 +32,7 @@ function extractFrontmatter(content: string) {
       
       // Handle arrays (basic support for tech arrays)
       if (value.startsWith('[') && value.endsWith(']')) {
-        value = value.slice(1, -1).split(',').map(item => item.trim().replace(/['"]/g, ''));
+        value = value.slice(1, -1).split(',').map((item: string) => item.trim().replace(/['"]/g, ''));
       }
       
       frontmatter[key] = value;
