@@ -1,9 +1,8 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { useSiteConfig } from '@/hooks/useSiteConfig';
-import anime from 'animejs';
+import * as anime from 'animejs';
 
 const Hero = () => {
   const { config, isLoading, error } = useSiteConfig();
