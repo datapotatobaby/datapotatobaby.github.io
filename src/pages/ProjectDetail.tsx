@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
@@ -7,10 +8,12 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Project } from '@/types/content';
 import { getProjects } from '@/utils/content-loader';
+import { marked } from 'marked';
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [project, setProject] = useState<Project | null>(null);
+  const [processedContent, setProcessedContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
 
   // Scroll to top when component mounts or slug changes
@@ -26,7 +29,15 @@ const ProjectDetail = () => {
         setIsLoading(true);
         const projectsData = await getProjects();
         const foundProject = projectsData.find(p => p.slug === slug);
-        setProject(foundProject || null);
+        
+        if (foundProject) {
+          setProject(foundProject);
+          // Process the markdown content to HTML
+          const htmlContent = await marked(foundProject.content);
+          setProcessedContent(htmlContent);
+        } else {
+          setProject(null);
+        }
       } catch (error) {
         console.error('Error loading project:', error);
         setProject(null);
@@ -135,7 +146,7 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          <div dangerouslySetInnerHTML={{ __html: project.content }} />
+          <div dangerouslySetInnerHTML={{ __html: processedContent }} />
         </article>
       </main>
       
