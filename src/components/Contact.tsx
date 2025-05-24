@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useSiteConfig } from '@/hooks/useSiteConfig';
@@ -87,7 +87,8 @@ const Contact = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div className="max-w-2xl mx-auto space-y-8">
+        {/* Contact Form */}
         <Card>
           <CardHeader>
             <CardTitle>Send Me a Message</CardTitle>
@@ -159,75 +160,37 @@ const Contact = () => {
           </CardContent>
         </Card>
         
-        <div className="space-y-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Email</h3>
-                  <p className="text-foreground/70">{userInfo.email}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Phone</h3>
-                  <p className="text-foreground/70">{userInfo.phone}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Location</h3>
-                  <p className="text-foreground/70">{userInfo.location}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Connect With Me</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-4">
-                <a 
-                  href={userInfo.links.github} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-card border border-border hover:border-accent/50 transition-all p-3 rounded-full"
-                >
-                  <Github className="h-5 w-5" />
-                </a>
-                <a 
-                  href={userInfo.links.linkedin} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-card border border-border hover:border-accent/50 transition-all p-3 rounded-full"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Social Media Links */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">Connect With Me</CardTitle>
+            <CardDescription className="text-center">
+              Let's connect on social media and stay in touch!
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-center items-center gap-6">
+              <a 
+                href={userInfo.links.github} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 bg-card border border-border hover:border-accent/50 hover:bg-accent/5 transition-all p-6 rounded-lg group"
+              >
+                <Github className="h-8 w-8 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-medium">GitHub</span>
+              </a>
+              <a 
+                href={userInfo.links.linkedin} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 bg-card border border-border hover:border-accent/50 hover:bg-accent/5 transition-all p-6 rounded-lg group"
+              >
+                <Linkedin className="h-8 w-8 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-medium">LinkedIn</span>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
