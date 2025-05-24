@@ -1,9 +1,34 @@
-
 import { BlogPost, Project } from "@/types/content";
 
 // Import MDX content directly
 const blogModules = import.meta.glob('/public/content/blog/*/index.mdx', { as: 'raw', eager: true });
 const projectModules = import.meta.glob('/public/content/projects/*/index.mdx', { as: 'raw', eager: true });
+
+// Function to format date strings consistently
+function formatDate(dateInput: string): string {
+  if (!dateInput) return '';
+  
+  try {
+    // Try to parse the date - handles ISO strings, regular date strings, etc.
+    const date = new Date(dateInput);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      console.warn('Invalid date format:', dateInput);
+      return dateInput; // Return original if can't parse
+    }
+    
+    // Format to a readable format: "May 24, 2025"
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (error) {
+    console.warn('Error parsing date:', dateInput, error);
+    return dateInput; // Return original if error occurs
+  }
+}
 
 // Function to extract frontmatter from raw MDX content
 function extractFrontmatter(content: string) {
@@ -105,7 +130,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       slug,
       title: frontmatter.title || 'Untitled',
       excerpt: frontmatter.excerpt || '',
-      date: frontmatter.date || '',
+      date: formatDate(frontmatter.date || ''),
       readTime: frontmatter.readTime || '',
       category: Array.isArray(frontmatter.category) ? frontmatter.category[0] : (frontmatter.category || 'Uncategorized'),
       image: getImageUrl(frontmatter.image, 'blog', slug),
