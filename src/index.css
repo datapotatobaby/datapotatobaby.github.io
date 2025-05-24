@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -108,14 +109,12 @@
     color: black !important;
   }
   
-  /* Hide navigation and footer elements */
+  /* Hide navigation and other elements */
   header,
   nav,
   footer,
   .print\:hidden,
-  button:not(.prose button),
-  [data-testid="mobile-menu"],
-  .no-print {
+  button:not(.prose button) {
     display: none !important;
   }
   
@@ -188,5 +187,36 @@
   /* Ensure resume content is visible */
   .max-w-4xl {
     display: block !important;
+  }
+  
+  /* Fix contact information layout for print */
+  .flex.flex-wrap.items-center.gap-6 {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+  
+  .flex.items-center.gap-2.whitespace-nowrap {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    white-space: nowrap !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Prevent line breaks in contact info */
+  .flex.items-center.gap-2.whitespace-nowrap * {
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Ensure icons stay with text */
+  .w-4.h-4.flex-shrink-0 {
+    display: inline !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    margin-right: 0.25rem !important;
+    vertical-align: middle !important;
   }
 }
