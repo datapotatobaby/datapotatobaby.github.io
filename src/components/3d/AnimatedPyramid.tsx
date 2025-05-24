@@ -36,7 +36,7 @@ const ConvergingCircle = ({
       <circleGeometry args={[0.8, 32]} />
       <meshBasicMaterial 
         color={color}
-        transparent={true}
+        transparent
         opacity={0.7}
       />
     </mesh>
