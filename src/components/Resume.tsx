@@ -25,7 +25,9 @@ const Resume = ({ resumeData }: ResumeProps) => {
   
   const processedContent = marked(content, {
     breaks: false,
-    gfm: true
+    gfm: true,
+    pedantic: false,
+    smartypants: false
   });
 
   const handlePrint = () => {
@@ -85,7 +87,8 @@ const Resume = ({ resumeData }: ResumeProps) => {
                    prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-5 prose-ol:pl-5
                    prose-em:text-slate-600 prose-em:not-italic
                    first:prose-h2:mt-0
-                   print:prose-h2:border-none"
+                   print:prose-h2:border-none
+                   [&_p]:whitespace-pre-line"
           dangerouslySetInnerHTML={{ __html: processedContent }} 
         />
       </div>
