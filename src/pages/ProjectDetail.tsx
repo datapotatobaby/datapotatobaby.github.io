@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
@@ -37,7 +36,6 @@ const ProjectDetail = () => {
           marked.setOptions({
             breaks: true,
             gfm: true,
-            headerIds: true,
             mangle: false
           });
           
