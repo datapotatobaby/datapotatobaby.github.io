@@ -19,15 +19,18 @@ const ProjectsSection = ({ title, items }: ProjectsSectionProps) => {
       {items.map((item, index) => (
         <div key={index} className="mb-4 print:mb-3">
           {item.title && (
-            <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              {item.title}
-            </h3>
+            <h3 
+              className="text-lg font-semibold text-slate-900 mb-2"
+              dangerouslySetInnerHTML={{ __html: item.title }}
+            />
           )}
           <ul className="list-disc list-outside ml-5 space-y-1 print:space-y-0.5">
             {item.description.map((desc, descIndex) => (
-              <li key={descIndex} className="text-sm text-slate-700 leading-relaxed print:text-black print:leading-tight">
-                {desc}
-              </li>
+              <li 
+                key={descIndex} 
+                className="text-sm text-slate-700 leading-relaxed print:text-black print:leading-tight"
+                dangerouslySetInnerHTML={{ __html: desc }}
+              />
             ))}
           </ul>
         </div>

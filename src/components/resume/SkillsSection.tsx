@@ -19,15 +19,18 @@ const SkillsSection = ({ title, items }: SkillsSectionProps) => {
       {items.map((item, index) => (
         <div key={index} className="mb-3 print:mb-2">
           {item.title && (
-            <h3 className="text-base font-medium text-slate-900 mb-1">
-              {item.title}
-            </h3>
+            <h3 
+              className="text-base font-medium text-slate-900 mb-1"
+              dangerouslySetInnerHTML={{ __html: item.title }}
+            />
           )}
           <ul className="list-disc list-outside ml-5 space-y-0.5">
             {item.description.map((skill, skillIndex) => (
-              <li key={skillIndex} className="text-sm text-slate-700 print:text-black">
-                {skill}
-              </li>
+              <li 
+                key={skillIndex} 
+                className="text-sm text-slate-700 print:text-black"
+                dangerouslySetInnerHTML={{ __html: skill }}
+              />
             ))}
           </ul>
         </div>

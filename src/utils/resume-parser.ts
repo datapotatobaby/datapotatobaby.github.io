@@ -15,6 +15,19 @@ interface ResumeItem {
   technologies?: string[];
 }
 
+// Helper function to process markdown formatting
+function processMarkdownFormatting(text: string): string {
+  return text
+    // Process bold text (**text** or __text__)
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/__(.*?)__/g, '<strong>$1</strong>')
+    // Process italic text (*text* or _text_)
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/_(.*?)_/g, '<em>$1</em>')
+    // Process inline code (`code`)
+    .replace(/`(.*?)`/g, '<code>$1</code>');
+}
+
 export function parseResumeContent(content: string): ResumeSection[] {
   const sections: ResumeSection[] = [];
   const lines = content.split('\n');
@@ -55,7 +68,7 @@ export function parseResumeContent(content: string): ResumeSection[] {
         currentSection.items.push(currentItem);
       }
       
-      const title = line.replace('### ', '');
+      const title = processMarkdownFormatting(line.replace('### ', ''));
       currentItem = {
         title,
         description: [],
@@ -66,28 +79,29 @@ export function parseResumeContent(content: string): ResumeSection[] {
     else if (line.startsWith('**') && line.includes('|')) {
       if (currentItem) {
         const parts = line.replace(/\*\*/g, '').split('|').map(p => p.trim());
-        currentItem.company = parts[0];
-        currentItem.date = parts[1];
+        currentItem.company = processMarkdownFormatting(parts[0]);
+        currentItem.date = processMarkdownFormatting(parts[1]);
       }
     }
     // Bullet points
     else if (line.startsWith('- ')) {
       if (currentItem) {
-        const description = line.replace('- ', '');
+        const description = processMarkdownFormatting(line.replace('- ', ''));
         currentItem.description.push(description);
       }
     }
     // Technology lists or other content
     else if (line.startsWith('**') && line.endsWith('**')) {
       // Technology category
-      const category = line.replace(/\*\*/g, '');
+      const category = processMarkdownFormatting(line.replace(/\*\*/g, ''));
       if (currentSection && currentSection.type === 'skills') {
         const nextLine = lines[i + 1];
         if (nextLine && nextLine.startsWith('- ')) {
           const techs = [];
           let j = i + 1;
           while (j < lines.length && lines[j].trim().startsWith('- ')) {
-            techs.push(lines[j].trim().replace('- ', ''));
+            const tech = processMarkdownFormatting(lines[j].trim().replace('- ', ''));
+            techs.push(tech);
             j++;
           }
           currentSection.items.push({
