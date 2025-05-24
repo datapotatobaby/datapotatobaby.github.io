@@ -1,3 +1,4 @@
+
 import { marked } from 'marked';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Download } from 'lucide-react';
@@ -23,7 +24,7 @@ const Resume = ({ resumeData }: ResumeProps) => {
   const { frontmatter, content } = resumeData;
   
   const processedContent = marked(content, {
-    breaks: false,
+    breaks: true,
     gfm: true,
     pedantic: false
   });
@@ -85,8 +86,7 @@ const Resume = ({ resumeData }: ResumeProps) => {
                    prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-5 prose-ol:pl-5
                    prose-em:text-slate-600 prose-em:not-italic
                    first:prose-h2:mt-0
-                   print:prose-h2:border-none
-                   [&_p]:whitespace-pre-wrap [&_p]:break-words"
+                   print:prose-h2:border-none"
           dangerouslySetInnerHTML={{ __html: processedContent }} 
         />
       </div>
