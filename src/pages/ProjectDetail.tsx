@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Project } from '@/types/content';
-import { getProject } from '@/utils/content-loader';
+import { getProjects } from '@/utils/content-loader';
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -24,8 +24,9 @@ const ProjectDetail = () => {
       
       try {
         setIsLoading(true);
-        const projectData = await getProject(slug);
-        setProject(projectData);
+        const projectsData = await getProjects();
+        const foundProject = projectsData.find(p => p.slug === slug);
+        setProject(foundProject || null);
       } catch (error) {
         console.error('Error loading project:', error);
         setProject(null);
