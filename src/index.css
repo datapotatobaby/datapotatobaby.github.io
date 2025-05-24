@@ -145,8 +145,8 @@
   }
   
   /* Avoid breaking inside important sections */
-  .prose-h3,
-  .prose-h4 {
+  h3,
+  h4 {
     page-break-after: avoid;
     break-after: avoid;
   }
@@ -164,13 +164,12 @@
   
   .border-slate-200,
   .border-b {
-    border: none !important;
+    border-color: black !important;
   }
   
-  /* Ensure text is black for print */
+  /* Ensure all text is black for print */
   * {
     color: black !important;
-    background: transparent !important;
   }
   
   /* Keep only essential spacing */
@@ -189,10 +188,23 @@
     display: block !important;
   }
   
+  /* Ensure bullet points render properly */
+  ul {
+    list-style-type: disc !important;
+    margin-left: 1.25rem !important;
+    padding-left: 0 !important;
+  }
+  
+  li {
+    display: list-item !important;
+    list-style-type: disc !important;
+    margin-bottom: 0.125rem !important;
+  }
+  
   /* Fix contact information layout for print */
   .flex.flex-wrap.items-center.gap-6 {
     display: flex !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     gap: 1rem !important;
     align-items: center !important;
   }
@@ -218,5 +230,10 @@
     height: 1rem !important;
     margin-right: 0.25rem !important;
     vertical-align: middle !important;
+  }
+  
+  /* Prevent awkward line breaks */
+  strong, em {
+    white-space: nowrap !important;
   }
 }

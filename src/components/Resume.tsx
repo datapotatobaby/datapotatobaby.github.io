@@ -1,8 +1,11 @@
 
-import { marked } from 'marked';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Download } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { parseResumeContent } from "@/utils/resume-parser";
+import ExperienceSection from "@/components/resume/ExperienceSection";
+import SkillsSection from "@/components/resume/SkillsSection";
+import ProjectsSection from "@/components/resume/ProjectsSection";
+import GenericSection from "@/components/resume/GenericSection";
 
 interface ResumeData {
   frontmatter: {
@@ -23,14 +26,25 @@ interface ResumeProps {
 const Resume = ({ resumeData }: ResumeProps) => {
   const { frontmatter, content } = resumeData;
   
-  const processedContent = marked(content, {
-    breaks: true,
-    gfm: true,
-    pedantic: false
-  });
+  const sections = parseResumeContent(content);
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const renderSection = (section: any, index: number) => {
+    switch (section.type) {
+      case 'experience':
+        return <ExperienceSection key={index} title={section.title} items={section.items} />;
+      case 'skills':
+        return <SkillsSection key={index} title={section.title} items={section.items} />;
+      case 'projects':
+        return <ProjectsSection key={index} title={section.title} items={section.items} />;
+      case 'education':
+      case 'other':
+      default:
+        return <GenericSection key={index} title={section.title} items={section.items} />;
+    }
   };
 
   return (
@@ -39,13 +53,13 @@ const Resume = ({ resumeData }: ResumeProps) => {
       <div className="bg-slate-50 border-b border-slate-200 p-8 print:bg-white print:border-none">
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+            <h1 className="text-3xl font-bold text-slate-900 mb-2 print:text-black">
               {frontmatter.name}
             </h1>
-            <p className="text-xl text-slate-600 mb-4">
+            <p className="text-xl text-slate-600 mb-4 print:text-black">
               {frontmatter.title}
             </p>
-            <p className="text-slate-700 leading-relaxed max-w-2xl">
+            <p className="text-slate-700 leading-relaxed max-w-2xl print:text-black">
               {frontmatter.summary}
             </p>
           </div>
@@ -55,7 +69,7 @@ const Resume = ({ resumeData }: ResumeProps) => {
           </Button>
         </div>
         
-        <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600">
+        <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600 print:text-black print:gap-4">
           <div className="flex items-center gap-2 whitespace-nowrap">
             <Mail className="w-4 h-4 flex-shrink-0" />
             <span>{frontmatter.email}</span>
@@ -72,23 +86,8 @@ const Resume = ({ resumeData }: ResumeProps) => {
       </div>
 
       {/* Content Section */}
-      <div className="p-8">
-        <div 
-          className="prose prose-slate max-w-none
-                   prose-headings:text-slate-900 prose-headings:font-bold
-                   prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8 prose-h2:pb-2 prose-h2:border-b prose-h2:border-slate-200
-                   prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4 prose-h3:font-semibold
-                   prose-h4:text-base prose-h4:mb-1 prose-h4:mt-3 prose-h4:font-medium
-                   prose-p:text-slate-700 prose-p:text-sm prose-p:leading-6 prose-p:mb-3
-                   prose-strong:text-slate-900 prose-strong:font-semibold
-                   prose-ul:text-slate-700 prose-ol:text-slate-700
-                   prose-li:text-slate-700 prose-li:text-sm prose-li:my-1 prose-li:leading-6
-                   prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-5 prose-ol:pl-5
-                   prose-em:text-slate-600 prose-em:not-italic
-                   first:prose-h2:mt-0
-                   print:prose-h2:border-none"
-          dangerouslySetInnerHTML={{ __html: processedContent }} 
-        />
+      <div className="p-8 print:p-6">
+        {sections.map((section, index) => renderSection(section, index))}
       </div>
     </div>
   );
