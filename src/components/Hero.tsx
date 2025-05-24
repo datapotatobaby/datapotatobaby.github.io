@@ -88,11 +88,11 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column: Hero 3D Pyramid */}
-          <div className="relative" ref={imageRef}>
+          {/* Right Column: Hero 3D Animation - No borders or background */}
+          <div className="relative overflow-visible" ref={imageRef}>
             <div className="hero-blob absolute -top-12 -left-12 rounded-full bg-secondary/30 h-48 w-48 blur-2xl opacity-75"></div>
             <div className="hero-blob absolute -bottom-12 -right-12 rounded-full bg-primary/30 h-48 w-48 blur-2xl opacity-75"></div>
-            <div className="relative rounded-lg bg-muted/50 p-8 shadow-lg backdrop-blur-sm">
+            <div className="relative overflow-visible">
               <AnimatedPyramid />
               <div className="absolute bottom-4 right-4 text-sm text-foreground/50 italic">
                 <p>{heroSection.heroImageText.field1_text}</p>

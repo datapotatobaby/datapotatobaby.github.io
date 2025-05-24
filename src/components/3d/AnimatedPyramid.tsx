@@ -36,7 +36,7 @@ const ConvergingCircle = ({
       <circleGeometry args={[0.8, 32]} />
       <meshBasicMaterial 
         color={color}
-        transparent
+        transparent={true}
         opacity={0.7}
       />
     </mesh>
@@ -45,7 +45,7 @@ const ConvergingCircle = ({
 
 const AnimatedPyramid = () => {
   return (
-    <div className="w-48 h-48 mx-auto relative">
+    <div className="w-full h-96 mx-auto relative overflow-visible">
       <Canvas camera={{ position: [0, 3, 3], fov: 50 }}>
         <ambientLight intensity={0.6} />
         
@@ -73,10 +73,10 @@ const AnimatedPyramid = () => {
       </Canvas>
       
       {/* Overlay for additive color mixing visualization */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="w-full h-full relative overflow-hidden rounded-lg">
+      <div className="absolute inset-0 pointer-events-none overflow-visible">
+        <div className="w-full h-full relative overflow-visible">
           <div 
-            className="absolute w-16 h-16 rounded-full"
+            className="absolute w-32 h-32 rounded-full"
             style={{
               background: 'radial-gradient(circle, rgba(0,255,255,0.6) 0%, rgba(0,255,255,0) 70%)',
               left: '50%',
@@ -86,7 +86,7 @@ const AnimatedPyramid = () => {
             }}
           />
           <div 
-            className="absolute w-16 h-16 rounded-full"
+            className="absolute w-32 h-32 rounded-full"
             style={{
               background: 'radial-gradient(circle, rgba(255,0,255,0.6) 0%, rgba(255,0,255,0) 70%)',
               left: '50%',
@@ -96,7 +96,7 @@ const AnimatedPyramid = () => {
             }}
           />
           <div 
-            className="absolute w-16 h-16 rounded-full"
+            className="absolute w-32 h-32 rounded-full"
             style={{
               background: 'radial-gradient(circle, rgba(255,255,0,0.6) 0%, rgba(255,255,0,0) 70%)',
               left: '50%',
@@ -108,17 +108,17 @@ const AnimatedPyramid = () => {
         </div>
       </div>
       
-      <style jsx>{`
+      <style>{`
         @keyframes convergence-cyan {
-          0%, 100% { transform: translate(-50%, -50%) translate(60px, 0px); }
+          0%, 100% { transform: translate(-50%, -50%) translate(120px, 0px); }
           50% { transform: translate(-50%, -50%) translate(0px, 0px); }
         }
         @keyframes convergence-magenta {
-          0%, 100% { transform: translate(-50%, -50%) translate(-30px, -52px); }
+          0%, 100% { transform: translate(-50%, -50%) translate(-60px, -104px); }
           50% { transform: translate(-50%, -50%) translate(0px, 0px); }
         }
         @keyframes convergence-yellow {
-          0%, 100% { transform: translate(-50%, -50%) translate(-30px, 52px); }
+          0%, 100% { transform: translate(-50%, -50%) translate(-60px, 104px); }
           50% { transform: translate(-50%, -50%) translate(0px, 0px); }
         }
       `}</style>
