@@ -1,0 +1,22 @@
+
+---
+title: "Test Post with Invalid Date"
+excerpt: "Testing how the system handles invalid date formats"
+date: 2025-05-24T10:30:00Z
+readTime: "3 min read"
+category: "Testing"
+image: "./images/nonexistent.jpg"
+---
+
+# Test Post with Invalid Date
+
+This post has a datetime object instead of a string in the date field. The frontmatter parser should handle this, but let's see what happens.
+
+## Expected Issues
+
+1. The date field contains a datetime object instead of a string
+2. The image path points to a nonexistent file
+
+## Content
+
+Some test content to see how this renders.

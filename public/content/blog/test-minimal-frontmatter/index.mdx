@@ -1,0 +1,21 @@
+
+---
+title: "Test Post with Minimal Frontmatter"
+---
+
+# Test Post with Minimal Frontmatter
+
+This is a test post that only has a title in the frontmatter. Let's see how the system handles missing excerpt, date, readTime, category, and image fields.
+
+## What should happen?
+
+The content loader should use fallback values for missing fields:
+- excerpt: empty string
+- date: empty string  
+- readTime: empty string
+- category: 'Uncategorized'
+- image: placeholder image
+
+## Content
+
+This post has some basic content to test the rendering.
