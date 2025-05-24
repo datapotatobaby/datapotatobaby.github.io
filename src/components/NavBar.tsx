@@ -32,6 +32,14 @@ const NavBar = () => {
   const isHomepage = location.pathname === '/';
   const isBlogSection = location.pathname.startsWith('/blog');
 
+  // Handle logo/name click
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHomepage) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Navigation link helper function
   const getNavLink = (section: string) => {
     if (isHomepage) {
@@ -62,7 +70,7 @@ const NavBar = () => {
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'}`}>
       <div className="container flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold">
+        <Link to="/" className="flex items-center gap-2 text-xl font-bold" onClick={handleLogoClick}>
           <Code className="text-accent" />
           <span>{config?.userInfo.name || 'John Doe'}</span>
         </Link>
