@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Code, FileCode, Menu, X } from 'lucide-react';
+import { useSiteConfig } from '@/hooks/useSiteConfig';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { config } = useSiteConfig();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,12 +52,19 @@ const NavBar = () => {
     }
   };
 
+  const handleResumeClick = () => {
+    if (config?.userInfo.resumeFileName) {
+      const resumeUrl = `/${config.userInfo.resumeFileName}`;
+      window.open(resumeUrl, '_blank');
+    }
+  };
+
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'}`}>
       <div className="container flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold">
           <Code className="text-accent" />
-          <span>John Doe</span>
+          <span>{config?.userInfo.name || 'John Doe'}</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -68,7 +77,7 @@ const NavBar = () => {
             <a href={getBlogLink()} className="text-foreground/80 hover:text-foreground transition-colors">Blog</a>
           )}
           <a href={getNavLink('contact')} className="text-foreground/80 hover:text-foreground transition-colors">Contact</a>
-          <Button variant="default">
+          <Button variant="default" onClick={handleResumeClick}>
             <FileCode className="mr-2 h-4 w-4" /> Resume
           </Button>
         </nav>
@@ -94,7 +103,7 @@ const NavBar = () => {
                 <a href={getBlogLink()} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Blog</a>
               )}
               <a href={getNavLink('contact')} className="text-foreground/80 hover:text-foreground transition-colors py-2" onClick={toggleMobileMenu}>Contact</a>
-              <Button variant="default" className="w-11/12 mt-2">
+              <Button variant="default" className="w-11/12 mt-2" onClick={handleResumeClick}>
                 <FileCode className="mr-2 h-4 w-4" /> Resume
               </Button>
             </nav>
