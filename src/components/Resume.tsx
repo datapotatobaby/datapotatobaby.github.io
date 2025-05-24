@@ -33,9 +33,9 @@ const Resume = ({ resumeData }: ResumeProps) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white text-gray-900 shadow-lg">
+    <div className="max-w-4xl mx-auto bg-white text-gray-900 shadow-lg print:shadow-none print:max-w-none print:mx-0">
       {/* Header Section */}
-      <div className="bg-slate-50 border-b border-slate-200 p-8">
+      <div className="bg-slate-50 border-b border-slate-200 p-8 print:bg-white print:border-none">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
@@ -84,7 +84,8 @@ const Resume = ({ resumeData }: ResumeProps) => {
                    prose-li:text-slate-700 prose-li:text-sm prose-li:my-1 prose-li:leading-6
                    prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-5 prose-ol:pl-5
                    prose-em:text-slate-600 prose-em:not-italic
-                   first:prose-h2:mt-0"
+                   first:prose-h2:mt-0
+                   print:prose-h2:border-none"
           dangerouslySetInnerHTML={{ __html: processedContent }} 
         />
       </div>

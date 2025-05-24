@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -92,7 +93,7 @@
 }
 
 .project-card {
-  @apply bg-card border border-border rounded-lg overflow-hidden flex flex-col h-full;
+  @apply bg-card border border-border rounded-lg overflow-hidden flex-col h-full;
 }
 
 .gradient-text {
@@ -104,32 +105,78 @@
   body {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
+    background: white !important;
+    color: black !important;
   }
   
-  .print\\:hidden {
+  /* Hide all navigation and UI elements */
+  header,
+  nav,
+  footer,
+  .print\\:hidden,
+  button,
+  [data-testid="mobile-menu"],
+  .no-print {
     display: none !important;
+  }
+  
+  /* Hide the main container padding and styling */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+  
+  /* Remove container styling for print */
+  .container {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Remove shadows and borders from resume container */
+  .max-w-4xl.mx-auto.bg-white.text-gray-900.shadow-lg {
+    box-shadow: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+    background: white !important;
   }
   
   /* Ensure proper page breaks */
   h2 {
     page-break-after: avoid;
+    break-after: avoid;
   }
   
   /* Avoid breaking inside important sections */
   .prose-h3,
   .prose-h4 {
     page-break-after: avoid;
+    break-after: avoid;
   }
   
   /* Control margins for print */
   @page {
     margin: 0.75in;
+    size: letter;
   }
   
-  /* Hide unnecessary elements */
-  nav,
-  footer,
-  .no-print {
-    display: none !important;
+  /* Remove background colors and borders for print */
+  .bg-slate-50 {
+    background: white !important;
+  }
+  
+  .border-slate-200,
+  .border-b {
+    border: none !important;
+  }
+  
+  /* Ensure text is black for print */
+  * {
+    color: black !important;
+    background: transparent !important;
+  }
+  
+  /* Keep only essential spacing */
+  main {
+    padding: 0 !important;
   }
 }
