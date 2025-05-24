@@ -1,7 +1,7 @@
-
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import * as THREE from 'three';
 
 const ConvergingCircle = ({ 
   color, 
@@ -34,11 +34,7 @@ const ConvergingCircle = ({
   return (
     <mesh ref={meshRef}>
       <circleGeometry args={[0.8, 32]} />
-      <meshBasicMaterial 
-        color={color}
-        transparent
-        opacity={0.7}
-      />
+      <meshBasicMaterial args={[{ color: color, transparent: true, opacity: 0.7 }]} />
     </mesh>
   );
 };
