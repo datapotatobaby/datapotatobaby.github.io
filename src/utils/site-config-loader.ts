@@ -49,9 +49,3 @@ export async function getTechnicalSkills() {
   const config = await getSiteConfig();
   return config.technicalSkillsAndExpertiseSection;
 }
-
-// Helper function to get contact info specifically
-export async function getContactInfo() {
-  const config = await getSiteConfig();
-  return config.contactSection;
-}

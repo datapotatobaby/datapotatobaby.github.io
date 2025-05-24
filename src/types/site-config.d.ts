@@ -36,9 +36,4 @@ export interface SiteConfig {
     title: string;
     tags: string[];
   }>;
-  contactSection: Array<{
-    icon: string;
-    title: string;
-    text: string;
-  }>;
 }

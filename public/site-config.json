@@ -64,22 +64,5 @@
       "title": "Business",
       "tags": ["Project management", "Team leadership", "Strategic planning", "Process optimization", "Client relations"]
     }
-  ],
-  "contactSection": [
-    {
-      "icon": "Mail",
-      "title": "Email",
-      "text": "john@example.com"
-    },
-    {
-      "icon": "Phone", 
-      "title": "Phone",
-      "text": "(555) 123-4567"
-    },
-    {
-      "icon": "MapPin",
-      "title": "Location", 
-      "text": "San Francisco, CA"
-    }
   ]
 }

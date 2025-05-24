@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Github, Linkedin } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useSiteConfig } from '@/hooks/useSiteConfig';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +17,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { config, isLoading } = useSiteConfig();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -70,6 +71,12 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (isLoading || !config) {
+    return <div>Loading...</div>;
+  }
+
+  const { userInfo } = config;
 
   return (
     <section id="contact" className="section-container bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30">
@@ -161,7 +168,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Email</h3>
-                  <p className="text-foreground/70">example@email.com</p>
+                  <p className="text-foreground/70">{userInfo.email}</p>
                 </div>
               </div>
             </CardContent>
@@ -175,7 +182,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Phone</h3>
-                  <p className="text-foreground/70">(555) 123-4567</p>
+                  <p className="text-foreground/70">{userInfo.phone}</p>
                 </div>
               </div>
             </CardContent>
@@ -189,7 +196,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Location</h3>
-                  <p className="text-foreground/70">San Francisco, CA</p>
+                  <p className="text-foreground/70">{userInfo.location}</p>
                 </div>
               </div>
             </CardContent>
@@ -202,7 +209,7 @@ const Contact = () => {
             <CardContent>
               <div className="flex items-center gap-4">
                 <a 
-                  href="https://github.com" 
+                  href={userInfo.links.github} 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-card border border-border hover:border-accent/50 transition-all p-3 rounded-full"
@@ -210,7 +217,7 @@ const Contact = () => {
                   <Github className="h-5 w-5" />
                 </a>
                 <a 
-                  href="https://linkedin.com" 
+                  href={userInfo.links.linkedin} 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-card border border-border hover:border-accent/50 transition-all p-3 rounded-full"
