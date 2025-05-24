@@ -7,10 +7,12 @@ import Footer from "@/components/Footer";
 import { Button } from '@/components/ui/button';
 import { BlogPost as BlogPostType } from '@/types/content';
 import { getBlogPostBySlug } from '@/utils/content-loader';
+import { marked } from 'marked';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostType | null>(null);
+  const [processedContent, setProcessedContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,6 +37,16 @@ const BlogPost = () => {
         }
         
         setPost(postData);
+        
+        // Configure marked options for better parsing
+        marked.setOptions({
+          breaks: true,
+          gfm: true
+        });
+        
+        // Process the markdown content to HTML
+        const htmlContent = await marked(postData.content);
+        setProcessedContent(htmlContent);
       } catch (error) {
         console.error('Error loading blog post:', error);
         setError('Failed to load blog post');
@@ -73,23 +85,8 @@ const BlogPost = () => {
       );
     }
 
-    // Simple renderer for Markdown content - just for demonstration
-    const lines = post.content.split('\n').map((line, i) => {
-      if (line.startsWith('# ')) {
-        return <h1 key={i} className="text-4xl font-bold mb-6">{line.substring(2)}</h1>;
-      } else if (line.startsWith('## ')) {
-        return <h2 key={i} className="text-3xl font-bold mb-4 mt-8">{line.substring(3)}</h2>;
-      } else if (line.startsWith('### ')) {
-        return <h3 key={i} className="text-2xl font-bold mb-3 mt-6">{line.substring(4)}</h3>;
-      } else if (line === '') {
-        return <br key={i} />;
-      } else {
-        return <p key={i} className="mb-4">{line}</p>;
-      }
-    });
-
     return (
-      <div className="prose prose-lg dark:prose-invert max-w-none">
+      <article>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 mt-8">{post.title}</h1>
         
         <div className="flex flex-wrap gap-4 items-center text-sm text-foreground/70 mb-8">
@@ -116,8 +113,25 @@ const BlogPost = () => {
           </div>
         )}
         
-        <div className="mt-8">{lines}</div>
-      </div>
+        <div 
+          className="prose prose-lg prose-slate dark:prose-invert max-w-none
+                   prose-headings:text-foreground prose-headings:font-bold
+                   prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8
+                   prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-6
+                   prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-5
+                   prose-h4:text-lg prose-h4:mb-2 prose-h4:mt-4
+                   prose-p:text-foreground prose-p:text-base prose-p:leading-7 prose-p:mb-4
+                   prose-strong:text-foreground prose-strong:font-semibold
+                   prose-ul:text-foreground prose-ol:text-foreground
+                   prose-li:text-foreground prose-li:text-base prose-li:my-1
+                   prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-6 prose-ol:pl-6
+                   prose-pre:bg-secondary prose-pre:text-foreground prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
+                   prose-code:bg-secondary prose-code:text-foreground prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                   prose-blockquote:border-l-primary prose-blockquote:text-foreground/80
+                   prose-a:text-primary prose-a:underline hover:prose-a:text-primary/80"
+          dangerouslySetInnerHTML={{ __html: processedContent }} 
+        />
+      </article>
     );
   };
 
