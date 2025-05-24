@@ -100,7 +100,7 @@ const ProjectDetail = () => {
           </Link>
         </Button>
 
-        <article className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-muted prose-pre:text-foreground">
+        <article className="prose prose-lg max-w-none dark:prose-invert">
           <div className="mb-8">
             <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             
@@ -154,7 +154,7 @@ const ProjectDetail = () => {
           </div>
 
           <div 
-            className="prose-content"
+            className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-base prose-p:leading-7 prose-li:text-base prose-strong:font-semibold prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-6 prose-ol:pl-6 prose-li:ml-0 prose-pre:bg-secondary prose-pre:p-4 prose-pre:rounded-lg prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm"
             dangerouslySetInnerHTML={{ __html: processedContent }} 
           />
         </article>
