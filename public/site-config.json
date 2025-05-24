@@ -1,11 +1,10 @@
-
 {
   "userInfo": {
     "links": {
       "github": "https://github.com/datapotatobaby",
       "linkedin": "https://linkedin.com/in/erik-k-hanson"
     },
-    "resumeFileName": "resume.pdf"
+    "resumeFileName": "resume"
   },
   "heroSection": {
     "greeting": "Hi, I'm John Doe",

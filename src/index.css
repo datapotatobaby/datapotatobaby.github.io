@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -98,4 +97,39 @@
 
 .gradient-text {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+}
+
+/* Print styles for resume */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .print\\:hidden {
+    display: none !important;
+  }
+  
+  /* Ensure proper page breaks */
+  h2 {
+    page-break-after: avoid;
+  }
+  
+  /* Avoid breaking inside important sections */
+  .prose-h3,
+  .prose-h4 {
+    page-break-after: avoid;
+  }
+  
+  /* Control margins for print */
+  @page {
+    margin: 0.75in;
+  }
+  
+  /* Hide unnecessary elements */
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
 }

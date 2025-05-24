@@ -1,70 +1,58 @@
-
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowDown, FileCode, Github, Linkedin } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useSiteConfig } from '@/hooks/useSiteConfig';
 
 const Hero = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const { config, isLoading, error } = useSiteConfig();
+
+  if (isLoading || !config) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const { heroSection } = config;
+
+  const handleDownloadResume = () => {
+    if (config?.userInfo?.resumeFileName) {
+      // Navigate to the resume page instead of downloading a PDF
+      window.open(`/resume`, '_blank');
     }
   };
 
   return (
-    <section className="min-h-screen flex items-center pt-16 bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30">
-      <div className="container">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1 space-y-6 text-center md:text-left">
-            <div className="space-y-2">
-              <h2 className="text-lg md:text-xl font-medium text-accent">Hi, I'm John Doe</h2>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                Business Professional & <span className="gradient-text">Tech Enthusiast</span>
-              </h1>
-              <p className="mt-4 text-lg md:text-xl text-foreground/70 max-w-2xl">
-                Transforming business operations through technology. Specializing in homelab setup, 
-                self-hosting, code development, data engineering, and automation solutions.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <Button size="lg" onClick={() => scrollToSection('projects')}>
-                View My Projects
-              </Button>
-              <Button variant="outline" size="lg">
-                <FileCode className="mr-2 h-4 w-4" />
-                Download Resume
-              </Button>
-            </div>
-            
-            <div className="flex items-center gap-4 justify-center md:justify-start">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-foreground transition-colors">
-                <Github size={22} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-foreground transition-colors">
-                <Linkedin size={22} />
-              </a>
-            </div>
-          </div>
-          
-          <div className="flex-1 flex justify-center">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-tr from-primary to-accent/70 flex items-center justify-center relative">
-              <div className="w-60 h-60 md:w-76 md:h-76 rounded-full bg-background/90 backdrop-blur flex items-center justify-center">
-                <div className="text-7xl">👨‍💻</div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-card border border-border shadow-lg rounded-lg p-3 text-sm">
-                <code className="text-accent">const passion = "tech";</code>
-              </div>
-              <div className="absolute -top-2 -left-2 bg-card border border-border shadow-lg rounded-lg p-3 text-sm">
-                <code className="text-primary">while(true) learn();</code>
-              </div>
-            </div>
+    <section id="hero" className="section-container pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        {/* Left Column: Hero Text */}
+        <div className="text-center lg:text-left">
+          <p className="text-lg text-foreground/70 mb-4">{heroSection.greeting}</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: heroSection.title }}></h1>
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto lg:mx-0 mb-8">{heroSection.description}</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Button className="gap-2" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
+              {heroSection.buttons.primary}
+              <ArrowRight size={16} />
+            </Button>
+            <Button variant="secondary" onClick={handleDownloadResume}>
+              {heroSection.buttons.secondary}
+            </Button>
           </div>
         </div>
-        
-        <div className="mt-10 flex justify-center">
-          <a href="#about" className="animate-bounce bg-card shadow-lg p-3 rounded-full border">
-            <ArrowDown className="text-accent" size={20} />
-          </a>
+
+        {/* Right Column: Hero Image/Icon */}
+        <div className="relative">
+          <div className="absolute -top-12 -left-12 rounded-full bg-secondary/30 h-48 w-48 blur-2xl opacity-75"></div>
+          <div className="absolute -bottom-12 -right-12 rounded-full bg-primary/30 h-48 w-48 blur-2xl opacity-75"></div>
+          <div className="relative rounded-lg bg-muted p-8 shadow-lg">
+            <span className="text-8xl">{heroSection.heroIcon}</span>
+            <div className="absolute bottom-4 right-4 text-sm text-foreground/50 italic">
+              <p>{heroSection.heroImageText.field1_text}</p>
+              <p>{heroSection.heroImageText.field2_text}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
