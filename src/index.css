@@ -109,14 +109,20 @@
     color: black !important;
   }
   
-  /* Hide all navigation and UI elements */
+  /* Hide all navigation and UI elements - more specific selectors */
   header,
   nav,
   footer,
-  .print\\:hidden,
+  .print\:hidden,
   button,
   [data-testid="mobile-menu"],
   .no-print {
+    display: none !important;
+  }
+  
+  /* Target NavBar and Footer components specifically */
+  header[class*="fixed"],
+  footer[class*="bg-slate-900"] {
     display: none !important;
   }
   
@@ -179,4 +185,15 @@
   main {
     padding: 0 !important;
   }
+  
+  /* Hide the entire page structure except resume content */
+  body > div:first-child > div:not(main) {
+    display: none !important;
+  }
+  
+  /* Ensure only the resume content is visible */
+  .min-h-screen.bg-background.flex.flex-col > *:not(main) {
+    display: none !important;
+  }
 }
+
