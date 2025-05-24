@@ -1,5 +1,9 @@
 {
   "userInfo": {
+    "name": "Erik Hanson",
+    "email": "your-email@example.com", 
+    "phone": "your-phone-number",
+    "location": "Your Location",
     "links": {
       "github": "https://github.com/datapotatobaby",
       "linkedin": "https://linkedin.com/in/erik-k-hanson"
