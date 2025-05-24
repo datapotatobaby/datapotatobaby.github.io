@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
@@ -35,8 +36,7 @@ const ProjectDetail = () => {
           // Configure marked options for better parsing
           marked.setOptions({
             breaks: true,
-            gfm: true,
-            mangle: false
+            gfm: true
           });
           
           // Process the markdown content to HTML
