@@ -32,6 +32,15 @@ const ProjectDetail = () => {
         
         if (foundProject) {
           setProject(foundProject);
+          
+          // Configure marked options for better parsing
+          marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            mangle: false
+          });
+          
           // Process the markdown content to HTML
           const htmlContent = await marked(foundProject.content);
           setProcessedContent(htmlContent);
@@ -93,7 +102,7 @@ const ProjectDetail = () => {
           </Link>
         </Button>
 
-        <article className="prose prose-lg max-w-none dark:prose-invert">
+        <article className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-muted prose-pre:text-foreground">
           <div className="mb-8">
             <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             
@@ -146,7 +155,10 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          <div dangerouslySetInnerHTML={{ __html: processedContent }} />
+          <div 
+            className="prose-content"
+            dangerouslySetInnerHTML={{ __html: processedContent }} 
+          />
         </article>
       </main>
       
