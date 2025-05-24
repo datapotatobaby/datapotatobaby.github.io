@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { useSiteConfig } from '@/hooks/useSiteConfig';
+import AnimatedPyramid from '@/components/3d/AnimatedPyramid';
 
 const Hero = () => {
   const { config, isLoading, error } = useSiteConfig();
@@ -35,12 +36,6 @@ const Hero = () => {
       }
     });
 
-    // Add floating animation to emoji
-    const emoji = imageRef.current?.querySelector('.hero-emoji') as HTMLElement;
-    if (emoji) {
-      emoji.style.animation = 'float 3s ease-in-out infinite';
-    }
-
     // Add subtle animations to blobs
     const blobs = imageRef.current?.querySelectorAll('.hero-blob');
     blobs?.forEach((blob, index) => {
@@ -70,10 +65,6 @@ const Hero = () => {
   return (
     <>
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
         @keyframes blob-float {
           0%, 100% { transform: scale(1) rotate(0deg); }
           50% { transform: scale(1.05) rotate(2deg); }
@@ -97,12 +88,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column: Hero Image/Icon */}
+          {/* Right Column: Hero 3D Pyramid */}
           <div className="relative" ref={imageRef}>
             <div className="hero-blob absolute -top-12 -left-12 rounded-full bg-secondary/30 h-48 w-48 blur-2xl opacity-75"></div>
             <div className="hero-blob absolute -bottom-12 -right-12 rounded-full bg-primary/30 h-48 w-48 blur-2xl opacity-75"></div>
-            <div className="relative rounded-lg bg-muted p-8 shadow-lg">
-              <span className="hero-emoji text-8xl block">{heroSection.heroIcon}</span>
+            <div className="relative rounded-lg bg-muted/50 p-8 shadow-lg backdrop-blur-sm">
+              <AnimatedPyramid />
               <div className="absolute bottom-4 right-4 text-sm text-foreground/50 italic">
                 <p>{heroSection.heroImageText.field1_text}</p>
                 <p>{heroSection.heroImageText.field2_text}</p>
