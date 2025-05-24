@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { useSiteConfig } from '@/hooks/useSiteConfig';
-import anime from 'animejs/lib/anime.es.js';
+import anime from 'animejs';
 
 const Hero = () => {
   const { config, isLoading, error } = useSiteConfig();
