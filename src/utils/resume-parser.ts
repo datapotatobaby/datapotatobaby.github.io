@@ -75,7 +75,7 @@ export function parseResumeContent(content: string): ResumeSection[] {
         technologies: []
       };
     }
-    // Bold text with pipes (company | date format)
+    // Bold text with pipes (company | date format) - replace pipes with bullets
     else if (line.startsWith('**') && line.includes('|')) {
       if (currentItem) {
         const parts = line.replace(/\*\*/g, '').split('|').map(p => p.trim());

@@ -28,7 +28,7 @@ const ExperienceSection = ({ title, items }: ExperienceSectionProps) => {
           {item.company && item.date && (
             <p className="text-sm text-slate-600 mb-2 print:text-black whitespace-nowrap">
               <span dangerouslySetInnerHTML={{ __html: item.company }} />
-              <span className="mx-2 inline-block">|</span>
+              <span className="mx-2 inline-block">•</span>
               <span dangerouslySetInnerHTML={{ __html: item.date }} />
             </p>
           )}
