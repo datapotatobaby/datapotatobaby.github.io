@@ -24,7 +24,7 @@ const Resume = ({ resumeData }: ResumeProps) => {
   const { frontmatter, content } = resumeData;
   
   const processedContent = marked(content, {
-    breaks: true,
+    breaks: false,
     gfm: true
   });
 
@@ -54,17 +54,17 @@ const Resume = ({ resumeData }: ResumeProps) => {
           </Button>
         </div>
         
-        <div className="flex flex-wrap gap-6 text-sm text-slate-600">
-          <div className="flex items-center gap-2">
-            <Mail className="w-4 h-4" />
+        <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600">
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <Mail className="w-4 h-4 flex-shrink-0" />
             <span>{frontmatter.email}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Phone className="w-4 h-4" />
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <Phone className="w-4 h-4 flex-shrink-0" />
             <span>{frontmatter.phone}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <MapPin className="w-4 h-4 flex-shrink-0" />
             <span>{frontmatter.location}</span>
           </div>
         </div>
