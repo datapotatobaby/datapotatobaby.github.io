@@ -18,7 +18,7 @@ const Pyramid = () => {
 
   return (
     <mesh ref={meshRef}>
-      <coneGeometry args={[1, 1.5, 4]} />
+      <cylinderGeometry args={[0.3, 1, 1.5, 4]} />
       <meshPhongMaterial 
         color="#3b82f6" 
         shininess={100}
