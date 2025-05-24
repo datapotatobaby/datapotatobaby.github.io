@@ -1,13 +1,13 @@
 
 {
   "userInfo": {
-    "name": "John Doe",
-    "email": "john@example.com",
+    "name": "Erik Hanson",
+    "email": "erik@erikhanson.xyz",
     "phone": "(555) 123-4567",
-    "location": "San Francisco, CA",
+    "location": "Portland, OR",
     "links": {
-      "github": "https://github.com/johndoe",
-      "linkedin": "https://linkedin.com/in/johndoe"
+      "github": "https://github.com/datapotatobaby",
+      "linkedin": "https://linkedin.com/in/erik-k-hanson"
     },
     "resumeFileName": "resume.pdf"
   },
