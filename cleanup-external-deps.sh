@@ -12,10 +12,17 @@ echo "Removing GPT Engineer script from index.html..."
 sed -i '/<!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->/d' "$PROJECT_ROOT/index.html"
 sed -i '/https:\/\/cdn\.gpteng\.co\/gptengineer\.js/d' "$PROJECT_ROOT/index.html"
 
-# 2. Remove lovable-tagger from package.json and reinstall dependencies
-echo "Removing lovable-tagger from package.json..."
+# 2. Remove lovable-tagger from package.json and vite.config.ts
+echo "Removing lovable-tagger references..."
+# Remove from package.json
 if jq 'del(.devDependencies["lovable-tagger"])' "$PROJECT_ROOT/package.json" > temp.json && mv temp.json "$PROJECT_ROOT/package.json"; then
     echo "lovable-tagger removed from package.json"
+    
+    # Remove from vite.config.ts
+    sed -i '/import.*lovable-tagger.*/d' "$PROJECT_ROOT/vite.config.ts"
+    # Remove the development mode check line entirely
+    sed -i '/mode === '\''development'\''/d' "$PROJECT_ROOT/vite.config.ts"
+    
     # Reinstall dependencies
     echo "Reinstalling dependencies..."
     npm install
