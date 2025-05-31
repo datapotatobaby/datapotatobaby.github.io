@@ -2,7 +2,7 @@
 
 ## Project info
 
-This website was largely built using Lovable.dev.
+This website was largely built using Lovable.dev and Void IDE.
 **URL**: https://lovable.dev/projects/39b8204b-50d2-45dc-85c8-d6fd3311ea5d
 
 This project is built with:
@@ -19,7 +19,6 @@ This project is built with:
 - A projects section to showcase your work.
 - A contact form that you can connect to your own PostgreSQL/Supabase instance.
 - A markdown/JSON-based content management system for easier updates and editing.
--
 
 ## Make this site your own
 
