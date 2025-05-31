@@ -30,7 +30,7 @@ const ResumePage = () => {
     const loadResume = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/content/resume/index.mdx');
+        const response = await fetch('/content/resume/index.mdx?raw');
         if (!response.ok) {
           throw new Error('Resume not found');
         }

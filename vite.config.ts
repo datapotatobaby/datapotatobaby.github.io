@@ -12,11 +12,17 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     mdx(),
-    react(),
-  ].filter(Boolean),
+    react()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Serve content files from the root content directory
+  publicDir: "public",
+  assetsInclude: ['**/*.mdx'],
+  define: {
+    // This allows Vite to resolve content files properly
+    'import.meta.glob': 'import.meta.glob'
+  }
 }));

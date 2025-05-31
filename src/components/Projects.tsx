@@ -7,25 +7,31 @@ import { Github, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Project } from "@/types/content";
 import { getProjects } from "@/utils/content-loader";
+import { getUserInfo } from "@/utils/site-config-loader";
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [githubLink, setGithubLink] = useState<string>("");
   
   useEffect(() => {
-    const loadProjects = async () => {
+    const loadData = async () => {
       try {
-        const projectsData = await getProjects();
+        const [projectsData, userInfo] = await Promise.all([
+          getProjects(),
+          getUserInfo()
+        ]);
         setProjects(projectsData);
+        setGithubLink(userInfo.links.github);
       } catch (error) {
-        console.error("Error loading projects:", error);
+        console.error("Error loading data:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadProjects();
+    loadData();
   }, []);
 
   const allCategories = Array.from(
@@ -134,7 +140,7 @@ const Projects = () => {
 
       <div className="mt-12 text-center">
         <Button variant="outline" asChild>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <a href={githubLink} target="_blank" rel="noopener noreferrer">
             <Github className="mr-2 h-4 w-4" />
             See More on GitHub
           </a>

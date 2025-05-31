@@ -9,7 +9,7 @@ export async function getSiteConfig(): Promise<SiteConfig> {
   }
 
   try {
-    const response = await fetch('/site-config.json');
+    const response = await fetch('site-config.json');
     if (!response.ok) {
       throw new Error(`Failed to load site config: ${response.statusText}`);
     }

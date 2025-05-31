@@ -1,8 +1,9 @@
+
 import { BlogPost, Project } from "@/types/content";
 
-// Import MDX content directly
-const blogModules = import.meta.glob('/public/content/blog/*/index.mdx', { as: 'raw', eager: true });
-const projectModules = import.meta.glob('/public/content/projects/*/index.mdx', { as: 'raw', eager: true });
+// Import MDX content directly from the root content directory
+const blogModules = import.meta.glob('/content/blog/*/index.mdx', { as: 'raw', eager: true });
+const projectModules = import.meta.glob('/content/projects/*/index.mdx', { as: 'raw', eager: true });
 
 // Function to format date strings consistently
 function formatDate(dateInput: string): string {
@@ -117,7 +118,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   
   Object.entries(blogModules).forEach(([path, content]) => {
     console.log('Processing path:', path);
-    const slug = path.match(/\/public\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
+    const slug = path.match(/\/content\/blog\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) {
       console.log('No slug found for path:', path);
       return;
@@ -148,7 +149,7 @@ export async function getProjects(): Promise<Project[]> {
   const projects: Project[] = [];
   
   Object.entries(projectModules).forEach(([path, content]) => {
-    const slug = path.match(/\/public\/content\/projects\/([^\/]+)\/index\.mdx$/)?.[1];
+    const slug = path.match(/\/content\/projects\/([^\/]+)\/index\.mdx$/)?.[1];
     if (!slug) return;
     
     const { frontmatter, content: bodyContent } = extractFrontmatter(content as string);
