@@ -1,56 +1,9 @@
-# Welcome to your Lovable project
+# Welcome to the code for my personal portfolio website.
 
 ## Project info
 
+This website was largely built using Lovable.dev.
 **URL**: https://lovable.dev/projects/39b8204b-50d2-45dc-85c8-d6fd3311ea5d
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/39b8204b-50d2-45dc-85c8-d6fd3311ea5d) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
 
 This project is built with:
 
@@ -60,14 +13,14 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Features
 
-Simply open [Lovable](https://lovable.dev/projects/39b8204b-50d2-45dc-85c8-d6fd3311ea5d) and click on Share -> Publish.
+- A blog with preview cards for individual posts.
+- A projects section to showcase your work.
+- A contact form that you can connect to your own PostgreSQL/Supabase instance.
+- A markdown/JSON-based content management system for easier updates and editing.
+-
 
-## Can I connect a custom domain to my Lovable project?
+## Make this site your own
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+To use this site as a template for your own portfolio...

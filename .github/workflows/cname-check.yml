@@ -1,0 +1,38 @@
+name: CNAME Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-cname:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify CNAME file
+        env:
+          EXPECTED_DOMAIN: "ehanson.dev"
+        run: |
+          CNAME_FILE="CNAME" 
+
+          if [ ! -f "$CNAME_FILE" ]; then
+            echo "Error: $CNAME_FILE file is missing!"
+            exit 1
+          fi
+
+          ACTUAL_DOMAIN=$(cat "$CNAME_FILE" | tr -d '[:space:]') # Read and trim whitespace
+
+          if [ "$ACTUAL_DOMAIN" != "$EXPECTED_DOMAIN" ]; then
+            echo "Error: $CNAME_FILE content is incorrect."
+            echo "Expected: '$EXPECTED_DOMAIN'"
+            echo "Found: '$ACTUAL_DOMAIN'"
+            exit 1
+          fi
+
+          echo "$CNAME_FILE is present and contains the correct domain: $ACTUAL_DOMAIN"
