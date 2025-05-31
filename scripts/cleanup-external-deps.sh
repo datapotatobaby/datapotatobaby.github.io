@@ -20,8 +20,13 @@ if jq 'del(.devDependencies["lovable-tagger"])' "$PROJECT_ROOT/package.json" > t
     
     # Remove from vite.config.ts
     sed -i '/import.*lovable-tagger.*/d' "$PROJECT_ROOT/vite.config.ts"
+    # Remove componentTagger() from plugins array
+    sed -i '/componentTagger(),/d' "$PROJECT_ROOT/vite.config.ts"
     # Remove the development mode check line entirely
     sed -i '/mode === '\''development'\''/d' "$PROJECT_ROOT/vite.config.ts"
+    
+    # Clean up any trailing commas in the plugins array
+    sed -i ':a;N;$!ba;s/,[\n[:space:]]*\]/]/g' "$PROJECT_ROOT/vite.config.ts"
     
     # Reinstall dependencies
     echo "Reinstalling dependencies..."
