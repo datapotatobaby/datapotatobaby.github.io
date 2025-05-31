@@ -2,8 +2,8 @@
 
 # Script name: cleanup-external-deps.sh
 
-# Set the project root directory (assuming script is run from project root)
-PROJECT_ROOT=$(pwd)
+# Get the project root directory.
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "Starting cleanup of external dependencies..."
 
