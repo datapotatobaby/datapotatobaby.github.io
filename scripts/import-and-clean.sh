@@ -83,14 +83,17 @@ echo ">>> Copying files from Lovable project (excluding content you manage here)
 # to the root of your GitHub Pages repository, with specific exclusions.
 # If this list grows at all, this script could benefit from a configuration
 # file to handle the list of exclusions.
-rsync -av --delete \\
-  --exclude '.git/' \\
-  --exclude '.github/' \\
-  --exclude 'content/' \\
-  --exclude 'public/site-config.json' \\
-  --exclude 'scripts/' \\
-  --exclude 'CNAME' \\
-  --exclude 'README.md' \\
+rsync -av --delete \
+  --exclude '.git/' \
+  --exclude '.github/' \
+  --exclude 'content/' \
+  --exclude 'dist/' \
+  --exclude 'dist-ssr/' \
+  --exclude 'public/site-config.json' \
+  --exclude 'scripts/' \
+  --exclude 'CNAME' \
+  --exclude 'README.md' \
+  --exclude '.vscode/' \
   "$LOVABLE_PROJECT_DIR/" "$CURRENT_SITE_DIR/"
 
 echo ">>> Running cleanup script..."
