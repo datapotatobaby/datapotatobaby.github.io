@@ -1,26 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Erik Hanson | Tech Portfolio & Blog</title>
-    <meta name="description" content="Business & Technology Professional - Portfolio showcasing projects in coding, data analytics, self-hosting, and automations." />
+    <title>Erik Hanson - Coming Soon</title>
+    <meta name="description" content="Erik Hanson - Portfolio and Blog - Coming Soon" />
     <meta name="author" content="Erik Hanson" />
-
-    <meta property="og:title" content="Erik Hanson | Tech Portfolio & Blog" />
-    <meta property="og:description" content="Business & Technology Professional - Portfolio showcasing projects in coding, data analytics, self-hosting, and automations." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/meta/opengraph.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="/images/meta/opengraph.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  </head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+      }
+
+      .container {
+        background: white;
+        padding: 3rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 600px;
+        margin: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #4a5568;
+        margin-bottom: 2rem;
+      }
+
+      .coming-soon {
+        font-size: 1.25rem;
+        color: #718096;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f7fafc;
+        border-radius: 8px;
+      }
+
+      .linkedin-btn {
+        display: inline-block;
+        background: #0077b5;
+        color: white;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+      }
+
+      .linkedin-btn:hover {
+        background: #005582;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 119, 181, 0.4);
+      }
+
+      .linkedin-btn:active {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        .container {
+          padding: 2rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="container">
+      <h1>Erik Hanson</h1>
+      <h2>Portfolio & Blog</h2>
+      <div class="coming-soon">
+        <strong>Coming Soon</strong>
+        <p style="margin-top: 0.5rem; font-size: 1rem;">This site is currently under construction.</p>
+      </div>
+      <a href="https://www.linkedin.com/in/erik-k-hanson/" class="linkedin-btn" target="_blank" rel="noopener noreferrer">
+        Connect on LinkedIn
+      </a>
+    </div>
   </body>
 </html>
